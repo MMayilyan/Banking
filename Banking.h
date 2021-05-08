@@ -26,14 +26,14 @@ public:
   ~Banking()
   {}
 
-  void Start();
-  void Create_new_account();
-  void Update_information_of_existing_account();
-  void For_transactions();
-  void Check_the_details_of_existing_account();
-  void Removing_existing_account();
-  void View_customers_list();
-  void Exit() const;
+  const static void Start();
+  const void Create_new_account();
+  const void Update_information_of_existing_account();
+  const void For_transactions();
+  const static void Check_the_details_of_existing_account();
+  const static void Removing_existing_account();
+  const static void View_customers_list();
+  const static void Exit();
 
 private:
   int number;

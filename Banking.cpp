@@ -7,7 +7,7 @@
 
 using json = nlohmann::json;
 
-void Banking::Start()
+const void Banking::Start()
 {
   std::cout << "\n\n" << "     CUSTOMER ACCOUNT BANKING MANAGMENT SYSTEM\n" 
             << "            WELCOM TO THE MAIN MENU\n\n"
@@ -27,22 +27,22 @@ void Banking::Start()
   switch (n) {
     case 1:
       b.Create_new_account();
-      break;
+      return Start();
     case 2:
       b.Update_information_of_existing_account();
-      break;
+      return Start();
     case 3:
       b.For_transactions();
-      break;
+      return Start();
     case 4:
       b.Check_the_details_of_existing_account();
-      break;
+      return Start();
     case 5:
       b.Removing_existing_account();
       break;
     case 6:
       b.View_customers_list();
-      break;
+      return Start();
     case 7: 
       b.Exit();
       break;
@@ -52,7 +52,7 @@ void Banking::Start()
   }
 }
 
-void Banking::Create_new_account()
+const void Banking::Create_new_account()
 {
   Banking ps;
   json acc;
@@ -102,10 +102,9 @@ void Banking::Create_new_account()
     Create_new_account();
   }
   std::cout << "Your account successesfully created!\n";
-  return Start();
 }
 
-void Banking::Update_information_of_existing_account()
+const void Banking::Update_information_of_existing_account()
 {
   json key;
   std::fstream upd;
@@ -136,7 +135,6 @@ void Banking::Update_information_of_existing_account()
             std::cin >> tmp;
             j.value() = tmp;
             std::cout << "\n" << "Your first name successesfully updated!";
-            return Start();
           }
         } 
       } else if (number == 2) {
@@ -147,7 +145,6 @@ void Banking::Update_information_of_existing_account()
             std::cin >> tmp;
             j.value() = tmp;
             std::cout << "\n" << "Your last name successesfully updated!";
-            return Start();
           }
         } 
       } else {
@@ -169,7 +166,7 @@ void Banking::Update_information_of_existing_account()
   std::cout << "\n";
 }
 
-void Banking::For_transactions()
+const void Banking::For_transactions()
 {
   json trans;
   std::fstream upd;
@@ -223,10 +220,8 @@ void Banking::For_transactions()
               int money = j.value();
               j.value() = money - amount;
               std::cout << "Done!";
-              return Start();
             } else {
               std::cout << "\n" << "There is not enough money on your account!\n";
-              return Start();
             } 
           } 
         }
@@ -239,8 +234,7 @@ void Banking::For_transactions()
         } else {
           std::cout << "Cannot open file! Try again.\n";
           For_transactions();
-        }
-        return Start();  
+        }  
       } else {
         std::cout << "Error! Try again.\n";
         return For_transactions(); 
@@ -250,7 +244,7 @@ void Banking::For_transactions()
   std::cout << "\n"; 
 }
 
-void Banking::Check_the_details_of_existing_account()
+const void Banking::Check_the_details_of_existing_account()
 {
   json check;
   std::fstream upd;
@@ -263,6 +257,7 @@ void Banking::Check_the_details_of_existing_account()
   std::string pass;
   std::cout << "Enter pin code: ";
   std::cin >> pass;
+  std::cout << "\n";
   int amount;
   
   for (json::iterator i = check.begin(); i != check.end(); ++i) {
@@ -272,10 +267,9 @@ void Banking::Check_the_details_of_existing_account()
       }
     }
   }
-  return Start();
 }
 
-void Banking::Removing_existing_account()
+const void Banking::Removing_existing_account()
 {
   json remove;
   std::fstream upd;
@@ -313,7 +307,7 @@ void Banking::Removing_existing_account()
   }
 }
 
-void Banking::View_customers_list()
+const void Banking::View_customers_list()
 {
   json list;
   std::fstream upd;
@@ -330,11 +324,11 @@ void Banking::View_customers_list()
       }
       std::cout << j.key() << " " << j.value() << std::endl;
     }
+    std::cout << "\n";
   }
-  return Start();
 }
 
-void Banking::Exit() const
+const void Banking::Exit()
 {
-  std::cout << "Have a nice day!";
+  std::cout << "Have a nice day!\n";
 }
